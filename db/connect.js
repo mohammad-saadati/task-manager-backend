@@ -9,6 +9,7 @@ const connectDB = async (connectionString) => {
   console.log("DB Connected...");
 };
 
+
 module.exports = {
   connectDB,
 };
