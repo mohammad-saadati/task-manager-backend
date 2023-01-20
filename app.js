@@ -1,3 +1,7 @@
+// third parties
+require("express-async-errors");
+var cookieParser = require("cookie-parser");
+
 const express = require("express");
 const app = express();
 // routes
@@ -30,7 +34,10 @@ app.use(
 app.use(express.static("./public"));
 
 app.use(express.json());
+app.use(cookieParser(process.env.JWT_SECRET));
 // register routes
+const { sendEmail } = require("./controllers/sendEmail");
+app.use("/api/v1/testEmail", sendEmail);
 app.use("/api/v1", tasks);
 app.use("/api/v1", auth);
 // register middlewares
