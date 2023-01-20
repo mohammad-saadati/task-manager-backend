@@ -1,7 +1,7 @@
-const Task = require("../models/task");
+const Task = require("../models/Task");
 const asyncWrapper = require("../middlewares/async");
 const { Error } = require("mongoose");
-const { createCustomError } = require("../utils/errors");
+const { createCustomError } = require("../errors/customAPI");
 
 const addTask = asyncWrapper(async (req, res) => {
   // env works here
