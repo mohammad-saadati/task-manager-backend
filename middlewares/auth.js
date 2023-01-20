@@ -1,4 +1,4 @@
-const { createCustomError } = require("../utils/errors");
+const { createCustomError } = require("../errors/customAPI");
 const jwt = require("jsonwebtoken");
 
 const authentication = async (req, res, next) => {
