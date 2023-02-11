@@ -5,10 +5,10 @@ const jwt = require("jsonwebtoken");
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: [true, "Please provide name"],
+    // required: [true, "Please provide name"],
     maxlength: 50,
     minlength: 3,
-    unique: true,
+    // unique: true,
   },
   email: {
     type: String,
@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, "Please provide password"],
+    // required: [true, "Please provide password"],
     minlength: [6, "Password must be at least 6 characters"],
   },
   verificationToken: {
@@ -41,11 +41,11 @@ const UserSchema = new mongoose.Schema({
   },
 });
 // middlewares
-UserSchema.pre("save", async function () {
-  if (!this.isModified("password")) return;
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-});
+// UserSchema.pre("save", async function () {
+//   if (!this.isModified("password")) return;
+//   const salt = await bcrypt.genSalt(10);
+//   this.password = await bcrypt.hash(this.password, salt);
+// });
 // instance methods
 UserSchema.methods.createJWT = function () {
   return jwt.sign(
