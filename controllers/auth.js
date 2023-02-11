@@ -67,16 +67,36 @@ const login = async (req, res) => {
 
   res.status(StatusCodes.OK).json({ user: tokenUser });
 };
-const logout = async (req, res) => {
-  res.cookie("token", "logout", {
-    httpOnly: true,
-    expires: new Date(Date.now() + 1000),
-  });
-  res.status(StatusCodes.OK).json({ msg: "user logged out!" });
-};
+// const logout = async (req, res) => {
+//   res.cookie("token", "logout", {
+//     httpOnly: true,
+//     expires: new Date(Date.now() + 1000),
+//   });
+//   res.status(StatusCodes.OK).json({ msg: "user logged out!" });
+// };
 const currentUser = async (req, res, next) => {
   const user = req.user;
   res.json({ msg: "", user });
+};
+const loginFailed = (req, res) => {
+  res
+    .status(StatusCodes.UNAUTHORIZED)
+    .json({ msg: "Login failure", error: true });
+};
+const loginSuccess = (req, res) => {
+  if (req.user) {
+    res
+      .status(StatusCodes.OK)
+      .json({ error: false, msg: "Login success", user: req.user });
+  } else {
+    res
+      .status(StausCodes.FORBIDDEN)
+      .json({ error: true, msg: "Not Authorized" });
+  }
+};
+const logout = (req, res) => {
+  req.logout();
+  res.redirect(process.env.CLIENT_URL)
 };
 
 module.exports = {
@@ -84,4 +104,6 @@ module.exports = {
   login,
   logout,
   currentUser,
+  loginFailed,
+  loginSuccess,
 };
