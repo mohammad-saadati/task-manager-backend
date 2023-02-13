@@ -26,7 +26,13 @@ const passport = require("passport");
 const passportSetup = require("./utils/googleStrategy");
 
 app.use(helmet());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://127.0.0.1:5173",
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true,
+  })
+);
 app.use(xss());
 app.set("trust proxy", 1);
 app.use(
@@ -43,7 +49,7 @@ app.use(passport.session());
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 100,
+    max: 1000,
   })
 );
 app.use(express.static("./public"));
