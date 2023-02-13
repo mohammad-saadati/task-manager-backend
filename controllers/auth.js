@@ -87,16 +87,16 @@ const loginSuccess = (req, res) => {
   if (req.user) {
     res
       .status(StatusCodes.OK)
-      .json({ error: false, msg: "Login success", user: req.user });
+      .json({ error: false, msg: "Login success", data: { user: req.user } });
   } else {
     res
-      .status(StausCodes.FORBIDDEN)
-      .json({ error: true, msg: "Not Authorized" });
+      .status(StatusCodes.FORBIDDEN)
+      .json({ error: true, msg: "Not Authorized", data: {} });
   }
 };
 const logout = (req, res) => {
   req.logout();
-  res.redirect(process.env.CLIENT_URL)
+  res.redirect(process.env.CLIENT_URL);
 };
 
 module.exports = {
