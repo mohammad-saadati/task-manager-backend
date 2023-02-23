@@ -87,7 +87,7 @@ const loginSuccess = (req, res) => {
   if (req.user) {
     res
       .status(StatusCodes.OK)
-      .json({ error: false, msg: "Login success", data: { user: req.user } });
+      .json({ error: false, msg: "Login success", user: req.user });
   } else {
     res
       .status(StatusCodes.FORBIDDEN)
