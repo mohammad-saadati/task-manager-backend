@@ -35,7 +35,11 @@ const updateSingleBoard = async (req, res) => {
   // check whether middleware catch the error or not
   res.status(StatusCodes.OK).json({ err: false, msg: "Board updated", board });
 };
-const deleteSingleBoard = async (req, res) => {};
+const deleteSingleBoard = async (req, res) => {
+  const { id: boardId } = req.params;
+  
+  const board = Board.findOneAndDelete({ _id: boardId });
+};
 
 module.exports = {
   addBoard,
