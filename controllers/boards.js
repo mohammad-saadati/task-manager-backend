@@ -15,8 +15,8 @@ const addBoard = async (req, res) => {
     .json({ error: false, msg: "Board created", board });
 };
 const getAllBoards = async (req, res) => {
-  const boards = await Board.find({});
-
+  const boards = await Board.find({ createdBy: req.user._id });
+  
   res.status(StatusCodes.OK).json({ error: false, msg: "", boards });
 };
 const getSingleBoard = async (req, res) => {
@@ -37,7 +37,7 @@ const updateSingleBoard = async (req, res) => {
 };
 const deleteSingleBoard = async (req, res) => {
   const { id: boardId } = req.params;
-  
+
   const board = Board.findOneAndDelete({ _id: boardId });
 };
 
