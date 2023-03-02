@@ -7,7 +7,7 @@ const { NotFoundError } = require("../errors");
 
 const addBoard = async (req, res) => {
   const board = await Board.create({
-    title: req.title,
+    title: req.body.title,
     createdBy: req.user._id,
   });
   res
@@ -16,7 +16,7 @@ const addBoard = async (req, res) => {
 };
 const getAllBoards = async (req, res) => {
   const boards = await Board.find({ createdBy: req.user._id });
-  
+
   res.status(StatusCodes.OK).json({ error: false, msg: "", boards });
 };
 const getSingleBoard = async (req, res) => {
@@ -24,7 +24,7 @@ const getSingleBoard = async (req, res) => {
 
   const board = await Board.find({ _id: boardId });
   // check whether middleware catch the error or not
-  res.status(Status.OK).json({ error: false, msg: "", board });
+  res.status(StatusCodes.OK).json({ error: false, msg: "", board });
 };
 const updateSingleBoard = async (req, res) => {
   const { id: boardId } = req.params;
