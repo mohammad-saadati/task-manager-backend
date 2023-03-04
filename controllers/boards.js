@@ -38,7 +38,9 @@ const updateSingleBoard = async (req, res) => {
 const deleteSingleBoard = async (req, res) => {
   const { id: boardId } = req.params;
 
-  const board = Board.findOneAndDelete({ _id: boardId });
+  const board = await Board.findOneAndDelete({ _id: boardId });
+
+  res.status(StatusCodes.OK).json({error: false, msg: "", board})
 };
 
 module.exports = {
