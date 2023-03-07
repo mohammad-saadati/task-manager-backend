@@ -33,7 +33,7 @@ const updateSingleBoard = async (req, res) => {
     new: true,
   });
   // check whether middleware catch the error or not
-  res.status(StatusCodes.OK).json({ err: false, msg: "Board updated", board });
+  res.status(StatusCodes.OK).json({ error: false, msg: "Board updated", board });
 };
 const deleteSingleBoard = async (req, res) => {
   const { id: boardId } = req.params;
