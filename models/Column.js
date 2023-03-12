@@ -11,10 +11,10 @@ const ColumnSchema = new mongoose.Schema({
     ref: "User",
     required: [true, "createdBy is required"],
   },
-  tasks: [
+  tasksOrder: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Task'
-  ],
+  ]},
   
 }, { timestamps: true });
 
