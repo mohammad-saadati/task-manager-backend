@@ -12,7 +12,7 @@ const BoardSchema = new mongoose.Schema(
       ref: "User",
       required: [true, "createdBy is required"],
     },
-    columns: [
+    columnsOrder: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Column",
