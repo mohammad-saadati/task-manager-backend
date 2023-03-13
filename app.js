@@ -5,7 +5,7 @@ var cookieParser = require("cookie-parser");
 const express = require("express");
 const app = express();
 // routes
-const { auth, boards, tasks } = require("./routes");
+const { auth, boards, tasks, columns } = require("./routes");
 // env
 require("dotenv").config();
 // db
@@ -63,6 +63,7 @@ app.get("/api/v1/test", (req, res) => {
 });
 // routing
 app.use("/api/v1", tasks);
+app.use("/api/v1", columns);
 app.use("/api/v1", boards);
 app.use("/api/v1", auth);
 // register middlewares
