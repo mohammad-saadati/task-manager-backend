@@ -22,9 +22,9 @@ const getAllBoards = async (req, res) => {
 const getSingleBoard = async (req, res) => {
   const { id: boardId } = req.params;
 
-  const board = await Board.find({ _id: boardId });
+  const board = await Board.find({ _id: boardId }).populate('columns');
   // check whether middleware catch the error or not
-  res.status(StatusCodes.OK).json({ error: false, msg: "", board });
+  res.status(StatusCodes.OK).json({ error: false, msg: "", board: board[0] });
 };
 const updateSingleBoard = async (req, res) => {
   const { id: boardId } = req.params;
@@ -33,14 +33,16 @@ const updateSingleBoard = async (req, res) => {
     new: true,
   });
   // check whether middleware catch the error or not
-  res.status(StatusCodes.OK).json({ error: false, msg: "Board updated", board });
+  res
+    .status(StatusCodes.OK)
+    .json({ error: false, msg: "Board updated", board });
 };
 const deleteSingleBoard = async (req, res) => {
   const { id: boardId } = req.params;
 
   const board = await Board.findOneAndDelete({ _id: boardId });
 
-  res.status(StatusCodes.OK).json({error: false, msg: "", board})
+  res.status(StatusCodes.OK).json({ error: false, msg: "", board });
 };
 
 module.exports = {
