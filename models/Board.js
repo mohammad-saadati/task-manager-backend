@@ -19,7 +19,17 @@ const BoardSchema = new mongoose.Schema(
       },
     ],
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
 );
+
+BoardSchema.virtual("columns", {
+  ref: "Column",
+  localField: "_id",
+  foreignField: "boardId",
+});
 
 module.exports = mongoose.model("Board", BoardSchema);
