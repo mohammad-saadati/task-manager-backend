@@ -36,5 +36,11 @@ ColumnSchema.post("save", async function (doc, next) {
   );
   next();
 });
+ColumnSchema.post("remove", async function (doc, next) {
+  const board = await Board.findOneAndUpdate(
+    { _id: doc.boardId },
+    { $pull: { columnsOrder: doc._id } }
+  );
+});
 
 module.exports = mongoose.model("Column", ColumnSchema);
