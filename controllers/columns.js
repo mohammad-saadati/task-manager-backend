@@ -39,9 +39,9 @@ const updateSingleBoard = async (req, res) => {
     .json({ error: false, msg: "Board updated", board });
 };
 const deleteSingleBoard = async (req, res) => {
-  const { id: boardId } = req.params;
+  const { id: columnId } = req.params;
 
-  const board = await Board.findOneAndDelete({ _id: boardId });
+  const board = await Column.findOneAndDelete({ _id: columnId });
 
   res.status(StatusCodes.OK).json({ error: false, msg: "", board });
 };
