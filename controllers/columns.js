@@ -9,7 +9,7 @@ const addColumn = async (req, res) => {
   const column = await Column.create({
     title: req.body.title,
     createdBy: req.user._id,
-    boardId: req.body.boardId
+    boardId: req.body.boardId,
   });
   res
     .status(StatusCodes.CREATED)
@@ -27,16 +27,16 @@ const getSingleBoard = async (req, res) => {
   // check whether middleware catch the error or not
   res.status(StatusCodes.OK).json({ error: false, msg: "", board: board[0] });
 };
-const updateSingleBoard = async (req, res) => {
-  const { id: boardId } = req.params;
+const updateSingleColumn = async (req, res) => {
+  const { id: columnId } = req.params;
 
-  const board = await Board.findOneAndUpdate({ _id: boardId }, req.body, {
+  const column = await Column.findOneAndUpdate({ _id: columnId }, req.body, {
     new: true,
   });
-  // check whether middleware catch the error or not
+
   res
     .status(StatusCodes.OK)
-    .json({ error: false, msg: "Board updated", board });
+    .json({ error: false, msg: "Column updated", column });
 };
 const deleteSingleColumn = async (req, res) => {
   const { id: columnId } = req.params;
