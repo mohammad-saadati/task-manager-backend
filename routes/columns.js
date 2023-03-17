@@ -4,10 +4,11 @@ const router = express.Router();
 const {
   addColumn,
   getColumns,
-  deleteSingleBoard,
+  deleteSingleColumn,
+  updateSingleColumn
 } = require("../controllers/columns.js");
 
 router.route("/columns").get(getColumns).post(addColumn);
-router.route("/columns/:id").delete(deleteSingleBoard);
+router.route("/columns/:id").put(updateSingleColumn).delete(deleteSingleColumn);
 
 module.exports = router;
