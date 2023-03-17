@@ -38,18 +38,18 @@ const updateSingleBoard = async (req, res) => {
     .status(StatusCodes.OK)
     .json({ error: false, msg: "Board updated", board });
 };
-const deleteSingleBoard = async (req, res) => {
+const deleteSingleColumn = async (req, res) => {
   const { id: columnId } = req.params;
 
-  const board = await Column.findOneAndDelete({ _id: columnId });
+  const column = await Column.findOneAndDelete({ _id: columnId });
 
-  res.status(StatusCodes.OK).json({ error: false, msg: "", board });
+  res.status(StatusCodes.OK).json({ error: false, msg: "", column });
 };
 
 module.exports = {
   addColumn,
   getColumns,
   getSingleBoard,
-  updateSingleBoard,
-  deleteSingleBoard,
+  updateSingleColumn,
+  deleteSingleColumn,
 };
