@@ -19,4 +19,12 @@ const TaskSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+TaskSchema.post("save", async function (doc, next) {
+  const board = await Column.update(
+    { _id: doc.columnId },
+    { $push: { tasksOrder: doc._id } }
+  );
+  next();
+});
+
 module.exports = mongoose.model("Task", TaskSchema);
