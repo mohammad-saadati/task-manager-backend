@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+//
+const Column = require("./Column");
 
 const TaskSchema = new mongoose.Schema(
   {
