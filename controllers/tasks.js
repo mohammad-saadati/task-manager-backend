@@ -12,17 +12,18 @@ const addTask = asyncWrapper(async (req, res) => {
     description: req.body.description,
   });
 
-  res.status(201).json({ task });
-  // res.status(500).json({ error });
-});
-const getAllTasks = asyncWrapper(async (req, res) => {
+  res
+    .status(StatusCodes.CREATED)
+    .json({ error: false, msg: "Task created", task });
+};
+const getAllTasks = async (req, res) => {
   const tasks = await Task.find({});
 
   res
     .status(200)
     .json({ status: true, message: "", tasks, count: tasks.length });
-});
-const getSingleTask = asyncWrapper(async (req, res, next) => {
+};
+const getSingleTask = async (req, res, next) => {
   const { id: taskId } = req.params;
   const task = await Task.findOne({ _id: taskId });
 
@@ -32,8 +33,8 @@ const getSingleTask = asyncWrapper(async (req, res, next) => {
   }
 
   res.status(200).json({ task });
-});
-const deleteSingleTask = asyncWrapper(async (req, res) => {
+};
+const deleteSingleTask = async (req, res) => {
   const { id: taskId } = req.params;
 
   const task = await Task.findOneAndDelete({
@@ -45,8 +46,6 @@ const deleteSingleTask = asyncWrapper(async (req, res) => {
   }
 
   res.status(200).json({ task });
-});
-const updateSingleTask = asyncWrapper(async (req, res) => {
   const { id: taskId } = req.params;
 
   const task = await Task.findOneAndUpdate(
@@ -64,7 +63,7 @@ const updateSingleTask = asyncWrapper(async (req, res) => {
   }
 
   res.status(200).json({ task });
-});
+};
 
 module.exports = {
   addTask,
