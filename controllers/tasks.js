@@ -1,14 +1,15 @@
 const Task = require("../models/Task");
-
-const asyncWrapper = require("../middlewares/async");
+// response status
+const { StatusCodes } = require("http-status-codes");
+// errors
 const { Error } = require("mongoose");
 const { createCustomError } = require("../errors/customAPI");
 
-const addTask = asyncWrapper(async (req, res) => {
-  // env works here
-  // console.log(process.env.MONGO_URI);
+const addTask = async (req, res) => {
   const task = await Task.create({
     title: req.body.title,
+    columnId: req.body.columnId,
+    createdBy: req.user._id,
     description: req.body.description,
   });
 
@@ -46,6 +47,8 @@ const deleteSingleTask = async (req, res) => {
   }
 
   res.status(200).json({ task });
+};
+const updateSingleTask = async (req, res) => {
   const { id: taskId } = req.params;
 
   const task = await Task.findOneAndUpdate(
