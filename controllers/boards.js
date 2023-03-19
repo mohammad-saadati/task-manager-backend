@@ -22,7 +22,10 @@ const getAllBoards = async (req, res) => {
 const getSingleBoard = async (req, res) => {
   const { id: boardId } = req.params;
 
-  const board = await Board.find({ _id: boardId }).populate('columns');
+  const board = await Board.find({ _id: boardId }).populate({
+    path: "columns",
+    populate: { path: "tasks" },
+  });
   // check whether middleware catch the error or not
   res.status(StatusCodes.OK).json({ error: false, msg: "", board: board[0] });
 };
