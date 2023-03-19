@@ -26,7 +26,11 @@ const ColumnSchema = new mongoose.Schema(
       },
     ],
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
 );
 
 ColumnSchema.post("save", async function (doc, next) {
@@ -41,6 +45,11 @@ ColumnSchema.post("remove", async function (doc, next) {
     { _id: doc.boardId },
     { $pull: { columnsOrder: doc._id } }
   );
+});
+ColumnSchema.virtual("tasks", {
+  ref: "Task",
+  localField: "_id",
+  foreignField: "columnId",
 });
 
 module.exports = mongoose.model("Column", ColumnSchema);
