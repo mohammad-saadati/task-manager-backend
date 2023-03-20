@@ -21,8 +21,8 @@ const getAllTasks = async (req, res) => {
   const tasks = await Task.find({});
 
   res
-    .status(200)
-    .json({ status: true, message: "", tasks, count: tasks.length });
+    .status(StatusCodes.OK)
+    .json({ error: false, message: "", tasks, count: tasks.length });
 };
 const getSingleTask = async (req, res, next) => {
   const { id: taskId } = req.params;
@@ -33,7 +33,7 @@ const getSingleTask = async (req, res, next) => {
     // return res.status(404).json({ msg: `there is no task with id: ${taskId}` });
   }
 
-  res.status(200).json({ task });
+  res.status(StatusCodes.OK).json({ error: false, msg: "", task });
 };
 const deleteSingleTask = async (req, res) => {
   const { id: taskId } = req.params;
@@ -43,10 +43,12 @@ const deleteSingleTask = async (req, res) => {
   });
 
   if (!task) {
-    return res.status(404).json({ msg: `there is no task with id: ${taskId}` });
+    return res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ error: true, msg: `there is no task with id: ${taskId}` });
   }
 
-  res.status(200).json({ task });
+  res.status(StatusCodes.OK).json({ error: false, msg: "Task removed", task });
 };
 const updateSingleTask = async (req, res) => {
   const { id: taskId } = req.params;
@@ -62,10 +64,10 @@ const updateSingleTask = async (req, res) => {
   );
 
   if (!task) {
-    return res.status(404).json({ msg: `there is no task with id: ${taskId}` });
+    return res.status(StatusCodes.NOT_FOUND).json({ error: true, msg: `there is no task with id: ${taskId}` });
   }
 
-  res.status(200).json({ task });
+  res.status(StatusCodes.OK).json({ task });
 };
 
 module.exports = {
