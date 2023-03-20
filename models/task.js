@@ -28,5 +28,12 @@ TaskSchema.post("save", async function (doc, next) {
   );
   next();
 });
+TaskSchema.post("remove", async function (doc, next) {
+  const board = await Column.findOneAndUpdate(
+    { _id: doc.columnId },
+    { $pull: { columnsOrder: doc._id } }
+  );
+  next();
+});
 
 module.exports = mongoose.model("Task", TaskSchema);
