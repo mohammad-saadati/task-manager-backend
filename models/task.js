@@ -28,10 +28,10 @@ TaskSchema.post("save", async function (doc, next) {
   );
   next();
 });
-TaskSchema.post("remove", async function (doc, next) {
-  const board = await Column.findOneAndUpdate(
+TaskSchema.post("findOneAndDelete", async function (doc, next) {
+  const task = await Column.findOneAndUpdate(
     { _id: doc.columnId },
-    { $pull: { columnsOrder: doc._id } }
+    { $pull: { tasksOrder: doc._id } }
   );
   next();
 });
