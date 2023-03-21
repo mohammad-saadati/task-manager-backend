@@ -22,9 +22,9 @@ const TaskSchema = new mongoose.Schema(
 );
 
 TaskSchema.post("save", async function (doc, next) {
-  const board = await Column.update(
+  await Column.findOneAndUpdate(
     { _id: doc.columnId },
-    { $push: { tasksOrder: doc._id } }
+    { $push: { tasksOrder: { $each: [doc._id], $position: 0 } } }
   );
   next();
 });
