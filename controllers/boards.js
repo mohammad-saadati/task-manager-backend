@@ -1,5 +1,5 @@
 // models
-const Board = require("../models/Board");
+const { Board } = require("../models/Board");
 // response status
 const { StatusCodes } = require("http-status-codes");
 // errors
@@ -45,7 +45,9 @@ const deleteSingleBoard = async (req, res) => {
 
   const board = await Board.findOneAndDelete({ _id: boardId });
 
-  res.status(StatusCodes.OK).json({ error: false, msg: "Board deleted", board });
+  res
+    .status(StatusCodes.OK)
+    .json({ error: false, msg: "Board deleted", board });
 };
 
 module.exports = {
