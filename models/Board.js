@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+// models
+const { Column } = require("./Column");
 
 const BoardSchema = new mongoose.Schema(
   {
@@ -36,4 +38,4 @@ BoardSchema.virtual("columns", {
   foreignField: "boardId",
 });
 
-module.exports = mongoose.model("Board", BoardSchema);
+module.exports.Board = mongoose.model("Board", BoardSchema);
