@@ -1,5 +1,5 @@
 // models
-const Column = require("../models/Column");
+const { Column } = require("../models/Column");
 // response status
 const { StatusCodes } = require("http-status-codes");
 // errors
