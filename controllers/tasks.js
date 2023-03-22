@@ -67,7 +67,7 @@ const updateSingleTask = async (req, res) => {
     return res.status(StatusCodes.NOT_FOUND).json({ error: true, msg: `there is no task with id: ${taskId}` });
   }
 
-  res.status(StatusCodes.OK).json({ task });
+  res.status(StatusCodes.OK).json({ error: false, msg:'Task updated', task });
 };
 
 module.exports = {
