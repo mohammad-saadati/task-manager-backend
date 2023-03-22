@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
-//
-const Board = require("./Board");
+// models
+const { Board } = require("./index");
+const Task = require("./Task");
 
 const ColumnSchema = new mongoose.Schema(
   {
@@ -34,6 +35,7 @@ const ColumnSchema = new mongoose.Schema(
 );
 
 ColumnSchema.post("save", async function (doc, next) {
+  console.log(Task, Board);
   const board = await Board.update(
     { _id: doc.boardId },
     { $push: { columnsOrder: doc._id } }
@@ -45,7 +47,7 @@ ColumnSchema.post("deleteMany", async function (doc, next) {
   next();
 });
 ColumnSchema.post("findOneAndDelete", async function (doc, next) {
-  const board = await Board.findOneAndUpdate(
+  const board = await Board.update(
     { _id: doc.boardId },
     { $pull: { columnsOrder: doc._id } }
   );
@@ -56,4 +58,4 @@ ColumnSchema.virtual("tasks", {
   foreignField: "columnId",
 });
 
-module.exports = mongoose.model("Column", ColumnSchema);
+module.exports.Column = mongoose.model("Column", ColumnSchema);
