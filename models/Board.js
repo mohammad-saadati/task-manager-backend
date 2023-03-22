@@ -25,7 +25,11 @@ const BoardSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
-
+BoardSchema.post("findOneAndDelete", async function (doc, next) {
+  if (doc.columnsOrder.length)
+    await Column.deleteMany({ _id: { $in: doc.columnsOrder } });
+  next();
+});
 BoardSchema.virtual("columns", {
   ref: "Column",
   localField: "_id",
