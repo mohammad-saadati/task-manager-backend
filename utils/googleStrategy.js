@@ -31,13 +31,11 @@ passport.use(
   )
 );
 passport.serializeUser((user, done) => {
-  console.log("serializeUser", user);
   // done(null, user._id);
   done(null, user);
 });
 
 passport.deserializeUser((user, done) => {
-  console.log("deserializeUser", user);
   done(null, user);
   // User.findById(id).then((user) => {
   //   done(null, user);
