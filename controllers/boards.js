@@ -45,7 +45,7 @@ const deleteSingleBoard = async (req, res) => {
 
   const board = await Board.findOneAndDelete({ _id: boardId });
 
-  res.status(StatusCodes.OK).json({ error: false, msg: "", board });
+  res.status(StatusCodes.OK).json({ error: false, msg: "Board deleted", board });
 };
 
 module.exports = {
