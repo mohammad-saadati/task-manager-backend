@@ -40,7 +40,11 @@ ColumnSchema.post("save", async function (doc, next) {
   );
   next();
 });
-ColumnSchema.post("remove", async function (doc, next) {
+ColumnSchema.post("deleteMany", async function (doc, next) {
+  await Task.deleteMany({ _id: { $in: doc.tasksOrder } });
+  next();
+});
+ColumnSchema.post("findOneAndDelete", async function (doc, next) {
   const board = await Board.findOneAndUpdate(
     { _id: doc.boardId },
     { $pull: { columnsOrder: doc._id } }
