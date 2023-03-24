@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 // models
-const { Board } = require("./index");
+const Board = require("./Board");
 const Task = require("./Task");
 
 const ColumnSchema = new mongoose.Schema(
@@ -36,7 +36,7 @@ const ColumnSchema = new mongoose.Schema(
 
 ColumnSchema.post("save", async function (doc, next) {
   console.log(Task, Board);
-  const board = await Board.update(
+  const board = await Board.Board.update(
     { _id: doc.boardId },
     { $push: { columnsOrder: doc._id } }
   );
@@ -47,7 +47,7 @@ ColumnSchema.post("deleteMany", async function (doc, next) {
   next();
 });
 ColumnSchema.post("findOneAndDelete", async function (doc, next) {
-  const board = await Board.update(
+  const board = await Board.Board.update(
     { _id: doc.boardId },
     { $pull: { columnsOrder: doc._id } }
   );
