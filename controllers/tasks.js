@@ -1,4 +1,4 @@
-const Task = require("../models/Task");
+const { Task } = require("../models/Task");
 // response status
 const { StatusCodes } = require("http-status-codes");
 // errors
@@ -64,10 +64,12 @@ const updateSingleTask = async (req, res) => {
   );
 
   if (!task) {
-    return res.status(StatusCodes.NOT_FOUND).json({ error: true, msg: `there is no task with id: ${taskId}` });
+    return res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ error: true, msg: `there is no task with id: ${taskId}` });
   }
 
-  res.status(StatusCodes.OK).json({ error: false, msg:'Task updated', task });
+  res.status(StatusCodes.OK).json({ error: false, msg: "Task updated", task });
 };
 
 module.exports = {
