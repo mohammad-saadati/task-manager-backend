@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 // models
 const { Column } = require("./Column");
+const { Task } = require("./Task");
 
 const BoardSchema = new mongoose.Schema(
   {
@@ -28,8 +29,10 @@ const BoardSchema = new mongoose.Schema(
   }
 );
 BoardSchema.post("findOneAndDelete", async function (doc, next) {
-  if (doc.columnsOrder.length)
+  if (doc.columnsOrder.length) {
     await Column.deleteMany({ _id: { $in: doc.columnsOrder } });
+    await Task.deleteMany({ columnId: { $in: doc.columnsOrder } });
+  }
   next();
 });
 BoardSchema.virtual("columns", {
