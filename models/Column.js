@@ -46,7 +46,7 @@ ColumnSchema.post("deleteMany", async function (doc, next) {
   next();
 });
 ColumnSchema.post("findOneAndDelete", async function (doc, next) {
-  const board = await Board.Board.update(
+  const board = await Board.Board.findOneAndUpdate(
     { _id: doc.boardId },
     { $pull: { columnsOrder: doc._id } }
   );
