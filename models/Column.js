@@ -41,10 +41,6 @@ ColumnSchema.post("save", async function (doc, next) {
   );
   next();
 });
-ColumnSchema.post("deleteMany", async function (doc, next) {
-  await Task.deleteMany({ _id: { $in: doc.tasksOrder } });
-  next();
-});
 ColumnSchema.post("findOneAndDelete", async function (doc, next) {
   const board = await Board.Board.findOneAndUpdate(
     { _id: doc.boardId },
