@@ -35,8 +35,7 @@ const ColumnSchema = new mongoose.Schema(
 );
 
 ColumnSchema.post("save", async function (doc, next) {
-  console.log(Task, Board);
-  const board = await Board.Board.update(
+  const board = await Board.Board.findOneAndUpdate(
     { _id: doc.boardId },
     { $push: { columnsOrder: doc._id } }
   );
