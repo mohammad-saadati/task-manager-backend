@@ -1,4 +1,5 @@
 // models
+const { Board } = require("../models/Board");
 const { Column } = require("../models/Column");
 // response status
 const { StatusCodes } = require("http-status-codes");
@@ -37,6 +38,27 @@ const deleteSingleColumn = async (req, res) => {
   const column = await Column.findOneAndDelete({ _id: columnId });
 
   res.status(StatusCodes.OK).json({ error: false, msg: "", column });
+};
+const reorderColumn = async (req, res) => {
+  let board = await Board.findOneAndUpdate(
+    { _id: req.body.boardId },
+    { $pull: { columnsOrder: req.body.columnId } }
+  );
+  board = await Board.findOneAndUpdate(
+    { _id: req.body.boardId },
+    {
+      $push: {
+        columnsOrder: {
+          $each: [req.body.columnId],
+          $position: req.body.targetIndex,
+        },
+      },
+    }
+  );
+
+  res
+    .status(StatusCodes.OK)
+    .json({ error: false, msg: "Board columns reordered" });
 };
 
 module.exports = {
