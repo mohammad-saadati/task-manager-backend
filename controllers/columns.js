@@ -20,13 +20,6 @@ const getColumns = async (req, res) => {
 
   res.status(StatusCodes.OK).json({ error: false, msg: "", boards });
 };
-const getSingleBoard = async (req, res) => {
-  const { id: boardId } = req.params;
-
-  const board = await Board.find({ _id: boardId });
-  // check whether middleware catch the error or not
-  res.status(StatusCodes.OK).json({ error: false, msg: "", board: board[0] });
-};
 const updateSingleColumn = async (req, res) => {
   const { id: columnId } = req.params;
 
