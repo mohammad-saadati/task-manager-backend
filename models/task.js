@@ -22,10 +22,12 @@ const TaskSchema = new mongoose.Schema(
 );
 
 TaskSchema.post("save", async function (doc, next) {
-  await Column.Column.findOneAndUpdate(
-    { _id: doc.columnId },
-    { $push: { tasksOrder: { $each: [doc._id], $position: 0 } } }
-  );
+  if (this.wasNew) {
+    await Column.Column.findOneAndUpdate(
+      { _id: doc.columnId },
+      { $push: { tasksOrder: { $each: [doc._id], $position: 0 } } }
+    );
+  }
   next();
 });
 TaskSchema.post("findOneAndDelete", async function (doc, next) {
