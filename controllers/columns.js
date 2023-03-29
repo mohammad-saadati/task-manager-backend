@@ -64,7 +64,7 @@ const reorderColumn = async (req, res) => {
 module.exports = {
   addColumn,
   getColumns,
-  getSingleBoard,
   updateSingleColumn,
   deleteSingleColumn,
+  reorderColumn,
 };
