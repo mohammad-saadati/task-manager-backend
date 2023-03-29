@@ -1,4 +1,5 @@
 const { Task } = require("../models/Task");
+const { Column } = require("../models/Column");
 // response status
 const { StatusCodes } = require("http-status-codes");
 // errors
@@ -71,6 +72,19 @@ const updateSingleTask = async (req, res) => {
 
   res.status(StatusCodes.OK).json({ error: false, msg: "Task updated", task });
 };
+const reorderTask = async (req, res) => {
+  const { columnId, taskId, targetIndex, sourceIndex } = req.body;
+  console.log(columnId, taskId, targetIndex);
+
+  const column = await Column.findOne({ _id: columnId });
+
+  column.tasksOrder.set(sourceIndex, column.tasksOrder[targetIndex]);
+  column.tasksOrder.set(targetIndex, column.tasksOrder[targetIndex]);
+
+  column.save();
+  // console.log(column);
+  res.status(StatusCodes.OK).json({ error: false, msg: "Task reordered" });
+};
 
 module.exports = {
   addTask,
@@ -78,4 +92,5 @@ module.exports = {
   getSingleTask,
   updateSingleTask,
   deleteSingleTask,
+  reorderTask,
 };
