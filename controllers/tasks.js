@@ -73,14 +73,14 @@ const updateSingleTask = async (req, res) => {
   res.status(StatusCodes.OK).json({ error: false, msg: "Task updated", task });
 };
 const reorderTask = async (req, res) => {
-  const { columnId, order } = req.body;
-  console.log(columnId, order);
+  const { columnId, targetIndex, sourceIndex, draggableIddraggableId } = req.body;
 
   const column = await Column.findOneAndUpdate(
     { _id: columnId },
-    { tasksOrder: order }
+    { tasksOrder: draggableId }
   );
-
+  
+  
   // console.log(column);
   res.status(StatusCodes.OK).json({ error: false, msg: "Task reordered" });
 };
