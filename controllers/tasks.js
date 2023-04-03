@@ -88,6 +88,7 @@ const reorderTask = async (req, res) => {
 
   res.status(StatusCodes.OK).json({ error: false, msg: "Task reordered" });
 };
+const moveTask = async (req, res) => {};
 
 module.exports = {
   addTask,
@@ -96,4 +97,5 @@ module.exports = {
   updateSingleTask,
   deleteSingleTask,
   reorderTask,
+  moveTask,
 };
