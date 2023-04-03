@@ -7,11 +7,12 @@ const { StatusCodes } = require("http-status-codes");
 const { NotFoundError } = require("../errors");
 
 const addColumn = async (req, res) => {
-  const column = await Column.create({
+  const column = new Column({
     title: req.body.title,
     createdBy: req.user._id,
     boardId: req.body.boardId,
   });
+  await column.save();
   res
     .status(StatusCodes.CREATED)
     .json({ error: false, msg: "Column created", column });
