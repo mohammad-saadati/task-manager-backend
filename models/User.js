@@ -40,12 +40,6 @@ const UserSchema = new mongoose.Schema({
     default: "user",
   },
 });
-// middlewares
-// UserSchema.pre("save", async function () {
-//   if (!this.isModified("password")) return;
-//   const salt = await bcrypt.genSalt(10);
-//   this.password = await bcrypt.hash(this.password, salt);
-// });
 // instance methods
 UserSchema.methods.createJWT = function () {
   return jwt.sign(
