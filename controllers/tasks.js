@@ -94,14 +94,6 @@ const moveTask = async (req, res) => {
   const tempCol = await Column.findOne({ _id: columnId });
   const tempTasksOrder = tempCol.tasksOrder;
 
-  const temp = tempTasksOrder.splice(sourceIndex, 1)[0];
-  tempTasksOrder.splice(targetIndex, 0, temp);
-
-  const column = await Column.findOneAndUpdate(
-    { _id: columnId },
-    { tasksOrder: tempTasksOrder }
-  );
-
   res.status(StatusCodes.OK).json({ error: false, msg: "Task reordered" });
 };
 
