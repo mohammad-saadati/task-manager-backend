@@ -89,9 +89,17 @@ const reorderTask = async (req, res) => {
   res.status(StatusCodes.OK).json({ error: false, msg: "Task reordered" });
 };
 const moveTask = async (req, res) => {
-  const { columnId, targetIndex, sourceIndex, draggableId } = req.body;
+  const { source, destination, draggableId } = req.body;
 
-  const tempCol = await Column.findOne({ _id: columnId });
+  const srcCol = await Column.findOne({ _id: source.droppableId });
+
+  const removedTaskId = srcCol.tasksOrder.splice(source.index, 1)[0];
+
+  await Column.findOneAndUpdate(
+    { _id: source.droppableId },
+    { tasksOrder: srcCol.tasksOrder }
+  );
+
   const tempTasksOrder = tempCol.tasksOrder;
 
   res.status(StatusCodes.OK).json({ error: false, msg: "Task reordered" });
