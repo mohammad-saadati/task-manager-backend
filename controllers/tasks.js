@@ -30,8 +30,7 @@ const getSingleTask = async (req, res, next) => {
   const task = await Task.findOne({ _id: taskId });
 
   if (!task) {
-    return next(createCustomError("Not Found", 404));
-    // return res.status(404).json({ msg: `there is no task with id: ${taskId}` });
+    return res.status(404).json({ msg: `there is no task with id: ${taskId}` });
   }
 
   res.status(StatusCodes.OK).json({ error: false, msg: "", task });
