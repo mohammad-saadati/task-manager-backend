@@ -17,7 +17,7 @@ router.route("/tasks/move").put(moveTask);
 router
   .route("/tasks/:id")
   .get(getSingleTask)
-  .put(updateSingleTask)
   .delete(deleteSingleTask);
+  .put(updateSingleTask)
 
 module.exports = router;
