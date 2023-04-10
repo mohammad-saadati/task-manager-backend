@@ -8,17 +8,17 @@ const ColumnSchema = new mongoose.Schema(
     title: {
       trim: true,
       type: String,
-      maxLength: [50, "title must have 50 chars at most."],
+      maxLength: [50, "Title must have 50 chars at most."],
     },
     boardId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Board",
-      required: [true, "boardId is required"],
+      required: [true, "BoardId is required"],
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: [true, "createdBy is required"],
+      required: [true, "CreatedBy is required"],
     },
     tasksOrder: [
       {
