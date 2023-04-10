@@ -13,7 +13,7 @@ router.route("/boards").get(getAllBoards).post(addBoard);
 router
   .route("/boards/:id")
   .get(getSingleBoard)
-  .put(updateSingleBoard)
   .delete(deleteSingleBoard);
+  .put(updateSingleBoard)
 
 module.exports = router;
