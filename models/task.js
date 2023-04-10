@@ -7,12 +7,12 @@ const TaskSchema = new mongoose.Schema(
     title: {
       trim: true,
       type: String,
-      maxLength: [50, "title must have 50 chars at most."],
+      maxLength: [50, "Title must have 50 chars at most."],
     },
     columnId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Column",
-      required: [true, "columnId is required"],
+      required: [true, "ColumnId is required"],
     },
     description: {
       type: String,
