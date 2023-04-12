@@ -17,6 +17,9 @@ const TaskSchema = new mongoose.Schema(
     description: {
       type: String,
     },
+    comment: {
+      type: String,
+    }
   },
   { timestamps: true }
 );
