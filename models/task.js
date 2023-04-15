@@ -16,10 +16,11 @@ const TaskSchema = new mongoose.Schema(
     },
     description: {
       type: String,
+      default: null,
     },
     comment: {
       type: String,
-    }
+    },
   },
   { timestamps: true }
 );
